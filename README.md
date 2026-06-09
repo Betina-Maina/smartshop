@@ -450,25 +450,3 @@ Solution:
 3. Verify session is active
 4. Clear browser cache
 ```
-
-## 📞 Support & Contact
-
-- **Email:** support@smartshop.com
-- **Website:** https://smartshop.local
-
-## 📄 License
-
-Copyright © 2024 SmartShop. All rights reserved.
-
-## 🙏 Credits
-
-Built with:
-- Bootstrap 5 (https://getbootstrap.com)
-- Font Awesome (https://fontawesome.com)
-- PHP (https://php.net)
-- MySQL (https://mysql.com)
-
----
-
-**Version:** 1.0.0
-**Status:** Production Ready
