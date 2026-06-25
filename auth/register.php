@@ -63,91 +63,103 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Register – SmartShop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo BASE_URL; ?>/css/style.css" rel="stylesheet">
-    <script>if(localStorage.getItem('ss-dark')==='1')document.documentElement.classList.add('dark');</script>
+    <link href="<?php echo BASE_URL; ?>/css/styles.css" rel="stylesheet">
+    <script>
+        if (localStorage.getItem('ss-dark') === '1') document.documentElement.classList.add('dark');
+    </script>
 </head>
+
 <body>
 
-<div class="container">
-    <div class="auth-card">
+    <div class="container">
+        <div class="auth-card">
 
-        <div class="auth-logo">🛍 SmartShop</div>
-        <h2>Create Account</h2>
-        <p class="text-center mb-4" style="color:var(--text-muted);font-size:.9rem">
-            Join SmartShop today
-        </p>
-
-        <?php if (!empty($errors)): ?>
-        <div class="alert alert-danger">
-            <?php foreach ($errors as $e): ?>
-            <div>• <?php echo htmlspecialchars($e); ?></div>
-            <?php endforeach; ?>
-        </div>
-        <?php endif; ?>
-
-        <form method="POST" novalidate>
-            <?php echo csrf_field(); ?>
-
-            <div class="mb-3">
-                <label class="form-label" for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username"
-                       value="<?php echo htmlspecialchars($values['username']); ?>"
-                       placeholder="Choose a username"
-                       minlength="3" maxlength="50" required autofocus>
+            <div class="auth-logo">
+                <i class="fa-solid fa-store me-2"></i>SmartShop
             </div>
+            <h2>Create Account</h2>
+            <p class="text-center mb-4" style="color:var(--text-muted);font-size:.9rem">
+                Join SmartShop today
+            </p>
 
-            <div class="mb-3">
-                <label class="form-label" for="email">Email Address</label>
-                <input type="email" class="form-control" id="email" name="email"
-                       value="<?php echo htmlspecialchars($values['email']); ?>"
-                       placeholder="your@email.com" required>
-            </div>
+            <?php if (!empty($errors)): ?>
+                <div class="alert alert-danger">
+                    <?php foreach ($errors as $e): ?>
+                        <div>• <?php echo htmlspecialchars($e); ?></div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
 
-            <div class="mb-3">
-                <label class="form-label" for="password">Password</label>
-                <div class="input-group">
-                    <input type="password" class="form-control" id="password" name="password"
-                           placeholder="At least 6 characters" minlength="6" required>
-                    <button class="btn btn-outline-secondary password-toggle" type="button"
+            <form method="POST" novalidate>
+                <?php echo csrf_field(); ?>
+
+                <div class="mb-3">
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username"
+                        value="<?php echo htmlspecialchars($values['username']); ?>"
+                        placeholder="Choose a username"
+                        minlength="3" maxlength="50" required autofocus>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email"
+                        value="<?php echo htmlspecialchars($values['email']); ?>"
+                        placeholder="your@email.com" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="At least 6 characters" minlength="6" required>
+                        <button class="btn btn-outline-secondary password-toggle" type="button"
                             onclick="togglePassword('password', this)">👁</button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="mb-3">
-                <label class="form-label" for="password2">Confirm Password</label>
-                <div class="input-group">
-                    <input type="password" class="form-control" id="password2" name="password2"
-                           placeholder="Repeat your password" required>
-                    <button class="btn btn-outline-secondary password-toggle" type="button"
+                <div class="mb-3">
+                    <label class="form-label" for="password2">Confirm Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password2" name="password2"
+                            placeholder="Repeat your password" required>
+                        <button class="btn btn-outline-secondary password-toggle" type="button"
                             onclick="togglePassword('password2', this)">👁</button>
+                    </div>
                 </div>
+
+                <button type="submit" class="btn btn-primary w-100 mt-2">
+                    Create Account
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                Already have an account?
+                <a href="<?php echo BASE_URL; ?>/auth/login.php">Sign in</a>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100 mt-2">
-                Create Account
-            </button>
-        </form>
-
-        <div class="auth-footer">
-            Already have an account?
-            <a href="<?php echo BASE_URL; ?>/auth/login.php">Sign in</a>
         </div>
-
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-function togglePassword(fieldId, btn) {
-    const f = document.getElementById(fieldId);
-    if (f.type === 'password') { f.type = 'text'; btn.textContent = '🙈'; }
-    else { f.type = 'password'; btn.textContent = '👁'; }
-}
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function togglePassword(fieldId, btn) {
+            const f = document.getElementById(fieldId);
+            if (f.type === 'password') {
+                f.type = 'text';
+                btn.textContent = '🙈';
+            } else {
+                f.type = 'password';
+                btn.textContent = '👁';
+            }
+        }
+    </script>
 </body>
+
 </html>
