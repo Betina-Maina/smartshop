@@ -12,7 +12,8 @@ $user   = current_user();
 
 // Stats
 $orderCount = (int) db_query(
-    'SELECT COUNT(*) FROM orders WHERE user_id = ?', [$userId]
+    'SELECT COUNT(*) FROM orders WHERE user_id = ?',
+    [$userId]
 )->fetchColumn();
 
 $totalSpent = (float) db_query(
@@ -21,7 +22,8 @@ $totalSpent = (float) db_query(
 )->fetchColumn();
 
 $cartItems = (int) db_query(
-    'SELECT COALESCE(SUM(quantity),0) FROM cart WHERE user_id = ?', [$userId]
+    'SELECT COALESCE(SUM(quantity),0) FROM cart WHERE user_id = ?',
+    [$userId]
 )->fetchColumn();
 
 // Recent orders (last 5)
@@ -86,34 +88,34 @@ $recentOrders = db_query(
                 </div>
 
                 <?php if (empty($recentOrders)): ?>
-                <p class="text-muted">No orders yet.</p>
+                    <p class="text-muted">No orders yet.</p>
                 <?php else: ?>
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th>Order #</th>
-                                <th>Date</th>
-                                <th>Total</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($recentOrders as $o): ?>
-                        <tr>
-                            <td>#<?php echo (int)$o['id']; ?></td>
-                            <td><?php echo date('M j, Y', strtotime($o['created_at'])); ?></td>
-                            <td>$<?php echo number_format((float)$o['total_amount'], 2); ?></td>
-                            <td>
-                                <span class="status-badge status-<?php echo htmlspecialchars($o['order_status']); ?>">
-                                    <?php echo ucfirst(htmlspecialchars($o['order_status'])); ?>
-                                </span>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Order #</th>
+                                    <th>Date</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($recentOrders as $o): ?>
+                                    <tr>
+                                        <td>#<?php echo (int)$o['id']; ?></td>
+                                        <td><?php echo date('M j, Y', strtotime($o['created_at'])); ?></td>
+                                        <td>$<?php echo number_format((float)$o['total_amount'], 2); ?></td>
+                                        <td>
+                                            <span class="status-badge status-<?php echo htmlspecialchars($o['order_status']); ?>">
+                                                <?php echo ucfirst(htmlspecialchars($o['order_status'])); ?>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
@@ -144,8 +146,11 @@ $recentOrders = db_query(
                     <a href="<?php echo BASE_URL; ?>/cart.php" class="btn btn-outline-primary btn-sm">
                         🛒 View Cart
                         <?php if ($cartItems > 0): ?>
-                        <span class="badge" style="background:var(--danger)"><?php echo $cartItems; ?></span>
+                            <span class="badge" style="background:var(--danger)"><?php echo $cartItems; ?></span>
                         <?php endif; ?>
+                    </a>
+                    <a href="<?php echo BASE_URL; ?>/profile.php" class="btn btn-outline-primary btn-sm">
+                        👤 My Profile
                     </a>
                     <a href="<?php echo BASE_URL; ?>/orders.php" class="btn btn-outline-primary btn-sm">
                         📦 My Orders
